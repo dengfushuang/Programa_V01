@@ -507,6 +507,22 @@ uint16 cmd_process( char* sprintf_buf )
 							else goto ERROR;
 							
 						}
+						//<ADxx_MAX_?>查询采集盘总通道数
+						else if((cp=strstr((char*)&sprintf_buf[5],"_MAX_?"))!=NULL && sprintf_buf[11]=='>' )
+						{
+							cp1 = &sprintf_buf[3];
+							cp2 = &sprintf_buf[4];
+							data_temp = (*cp1-'0')*10+*cp2;
+							if(EPROM.address == data_temp)
+							{
+								sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_MAX_%03u>" ,\
+											  EPROM.address,CHANNEL_NUM);
+							}
+							else
+							{
+								sprintf_len = 0;
+							}
+						}
           #endif						
 						else
 						{
