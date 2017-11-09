@@ -1,0 +1,188 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+F:\公司资料\工程模版\Project\Project.uvproj
+Project File Date:  08/03/2012
+
+<h2>Output:</h2>
+Build target 'Project'
+compiling main.c...
+assembling startup_LPC17xx.s...
+compiling core_cm3.c...
+compiling system_LPC17xx.c...
+compiling lpc17xx_adc.c...
+compiling lpc17xx_can.c...
+..\Libraries\Device\source\lpc17xx_can.c(134): warning:  #550-D: variable "temp" was set but never used
+..\Libraries\Device\source\lpc17xx_can.c(1063): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1336): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1376): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1412): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1412): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1416): warning:  #61-D: integer operation result is out of range
+compiling lpc17xx_clkpwr.c...
+compiling lpc17xx_dac.c...
+compiling lpc17xx_emac.c...
+compiling lpc17xx_exti.c...
+compiling lpc17xx_gpdma.c...
+..\Libraries\Device\source\lpc17xx_gpdma.c(80): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(81): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(82): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(83): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(84): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(85): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(86): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(87): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(88): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(89): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(90): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(91): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(92): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(93): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(94): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(95): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(96): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(97): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(98): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(99): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(100): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(101): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(102): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(103): warning:  #1296-D: extended constant initialiser used
+..\Libraries\Device\source\lpc17xx_gpdma.c(389): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpdma.c(431): warning:  #186-D: pointless comparison of unsigned integer with zero
+compiling lpc17xx_gpio.c...
+..\Libraries\Device\source\lpc17xx_gpio.c(293): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_gpio.c(295): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_gpio.c(297): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_gpio.c(299): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_gpio.c(617): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(623): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(655): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(661): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(687): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(712): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_gpio.c(732): warning:  #186-D: pointless comparison of unsigned integer with zero
+compiling lpc17xx_i2c.c...
+..\Libraries\Device\source\lpc17xx_i2c.c(590): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(687): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(694): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(742): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(894): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(907): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(944): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(1154): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2c.c(1178): warning:  #186-D: pointless comparison of unsigned integer with zero
+compiling lpc17xx_i2s.c...
+..\Libraries\Device\source\lpc17xx_i2s.c(407): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_i2s.c(478): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_i2s.c(557): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_i2s.c(610): warning:  #188-D: enumerated type mixed with another type
+..\Libraries\Device\source\lpc17xx_i2s.c(612): warning:  #188-D: enumerated type mixed with another type
+compiling lpc17xx_libcfg_default.c...
+compiling lpc17xx_mcpwm.c...
+..\Libraries\Device\source\lpc17xx_mcpwm.c(87): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(105): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(107): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(111): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(113): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(117): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(118): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(119): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(121): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(125): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(127): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(175): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(178): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(178): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(180): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(180): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(184): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(184): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(186): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(186): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(190): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(192): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(196): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(198): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(213): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(252): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(254): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(256): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(256): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(258): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(258): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(261): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(261): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(263): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(263): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(266): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_mcpwm.c(370): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_mcpwm.c(372): warning:  #61-D: integer operation result is out of range
+compiling lpc17xx_nvic.c...
+compiling lpc17xx_pinsel.c...
+compiling lpc17xx_pwm.c...
+..\Libraries\Device\source\lpc17xx_pwm.c(293): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_pwm.c(423): warning:  #186-D: pointless comparison of unsigned integer with zero
+compiling lpc17xx_qei.c...
+compiling lpc17xx_rit.c...
+..\Libraries\Device\source\lpc17xx_rit.c(174): warning:  #188-D: enumerated type mixed with another type
+compiling lpc17xx_rtc.c...
+..\Libraries\Device\source\lpc17xx_rtc.c(728): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_rtc.c(752): warning:  #186-D: pointless comparison of unsigned integer with zero
+compiling lpc17xx_spi.c...
+compiling lpc17xx_ssp.c...
+compiling lpc17xx_systick.c...
+compiling lpc17xx_timer.c...
+..\Libraries\Device\source\lpc17xx_timer.c(108): warning:  #68-D: integer conversion resulted in a change of sign
+compiling lpc17xx_uart.c...
+compiling lpc17xx_wdt.c...
+linking...
+Program Size: Code=692 RO-data=428 RW-data=0 ZI-data=608  
+"..\Output\Project.axf" - 0 Error(s), 106 Warning(s).
+Build target 'Project'
+compiling lpc17xx_can.c...
+..\Libraries\Device\source\lpc17xx_can.c(134): warning:  #550-D: variable "temp" was set but never used
+..\Libraries\Device\source\lpc17xx_can.c(1063): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1336): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1376): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1412): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1416): warning:  #61-D: integer operation result is out of range
+linking...
+Program Size: Code=692 RO-data=428 RW-data=0 ZI-data=608  
+"..\Output\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Project'
+compiling lpc17xx_can.c...
+..\Libraries\Device\source\lpc17xx_can.c(160): error:  #20: identifier "temp" is undefined
+..\Libraries\Device\source\lpc17xx_can.c(1063): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1336): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #68-D: integer conversion resulted in a change of sign
+..\Libraries\Device\source\lpc17xx_can.c(1376): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1412): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1416): warning:  #61-D: integer operation result is out of range
+Target not created
+Build target 'Project'
+compiling lpc17xx_can.c...
+..\Libraries\Device\source\lpc17xx_can.c(134): warning:  #550-D: variable "temp" was set but never used
+..\Libraries\Device\source\lpc17xx_can.c(1063): warning:  #186-D: pointless comparison of unsigned integer with zero
+..\Libraries\Device\source\lpc17xx_can.c(1332): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1336): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1372): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1376): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1412): warning:  #61-D: integer operation result is out of range
+..\Libraries\Device\source\lpc17xx_can.c(1416): warning:  #61-D: integer operation result is out of range
+linking...
+Program Size: Code=692 RO-data=428 RW-data=0 ZI-data=608  
+"..\Output\Project.axf" - 0 Error(s), 8 Warning(s).

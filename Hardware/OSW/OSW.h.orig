@@ -1,0 +1,62 @@
+/******************************************************************************
+
+                  版权所有 (C), 2001-2013, 桂林恒毅金宇通信技术有限公司
+
+ ******************************************************************************
+  文 件 名   : OSW.h
+  版 本 号   : 初稿
+  作    者   : 
+  生成日期   : 2013年5月31日
+  最近修改   :
+  功能描述   : OSW.C 的头文件
+  函数列表   :
+  修改历史   :
+******************************************************************************/
+
+#ifndef __OSW_H__
+#define __OSW_H__
+
+
+#ifdef __cplusplus
+#if __cplusplus
+extern "C"{
+#endif
+#endif /* __cplusplus */
+
+
+//引脚定义
+//#define	 MostSwitch_For_All     LPC_GPIO4->CLR |=    //所有的通道设置切换到主路	 	 
+//#define	 BypassSwitch_For_All   LPC_GPIO4->SET |=    //所有的通道设置切换到旁路	 
+
+//#define	 MostSwitch_For(ch)     LPC_GPIO4->CLR |= (1<<ch)
+//#define	 BypassSwitch_For(ch)   LPC_GPIO4->CLR |= (1<<ch)
+
+#define  SW_CON1_A_H      LPC_GPIO4->SET|=(1U<<10)      //SW_CON3_A关开关驱动脚控制电平
+#define  SW_CON1_A_L      LPC_GPIO4->CLR|=(1U<<10)
+#define  SW_CON1_B_H      LPC_GPIO4->SET|=(1U<<11)
+#define  SW_CON1_B_L      LPC_GPIO4->CLR|=(1U<<11)
+#define  SW_CON2_A_H      LPC_GPIO4->SET|=(1U<<12) 
+#define  SW_CON2_A_L      LPC_GPIO4->CLR|=(1U<<12) 
+#define  SW_CON2_B_H      LPC_GPIO4->SET|=(1U<<13)
+#define  SW_CON2_B_L      LPC_GPIO4->CLR|=(1U<<13)
+
+#define  SW_CON3_A_H      LPC_GPIO4->SET|=(1U<<6)      //关开关驱动脚控制电平
+#define  SW_CON3_A_L      LPC_GPIO4->CLR|=(1U<<6)
+#define  SW_CON3_B_H      LPC_GPIO4->SET|=(1U<<7)
+#define  SW_CON3_B_L      LPC_GPIO4->CLR|=(1U<<7)
+#define  SW_CON4_A_H      LPC_GPIO4->SET|=(1U<<8) 
+#define  SW_CON4_A_L      LPC_GPIO4->CLR|=(1U<<8) 
+#define  SW_CON4_B_H      LPC_GPIO4->SET|=(1U<<9)
+#define  SW_CON4_B_L      LPC_GPIO4->CLR|=(1U<<9)
+
+extern void BypassSwitch(uint8 ch);
+extern void MostSwitch(uint8 ch);
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif /* __cplusplus */
+
+
+#endif /* __OSW_H__ */

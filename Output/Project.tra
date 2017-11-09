@@ -1,0 +1,61 @@
+*** Creating Trace Output File '..\Output\Project.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"..\output\main.o"'
+### List of Objects: adding '"..\output\os_apphooks.o"'
+### List of Objects: adding '"..\output\menu.o"'
+### List of Objects: adding '"..\output\cmd_process.o"'
+### List of Objects: adding '"..\output\optics_judge.o"'
+### List of Objects: adding '"..\output\user_timeticks.o"'
+### List of Objects: adding '"..\output\delay.o"'
+### List of Objects: adding '"..\output\queue.o"'
+### List of Objects: adding '"..\output\lpc17xx_emac.o"'
+### List of Objects: adding '"..\output\uart0.o"'
+### List of Objects: adding '"..\output\lcd16032.o"'
+### List of Objects: adding '"..\output\adc.o"'
+### List of Objects: adding '"..\output\drv595.o"'
+### List of Objects: adding '"..\output\lpc177x_8x_eeprom.o"'
+### List of Objects: adding '"..\output\osw.o"'
+### List of Objects: adding '"..\output\rtc.o"'
+### List of Objects: adding '"..\output\at24c512.o"'
+### List of Objects: adding '"..\output\ds18b20.o"'
+### List of Objects: adding '"..\output\cat1025.o"'
+### List of Objects: adding '"..\output\startup_lpc17xx.o"'
+### List of Objects: adding '"..\output\core_cm3.o"'
+### List of Objects: adding '"..\output\system_lpc177x_8x.o"'
+### List of Objects: adding '"..\output\os_cpu_c.o"'
+### List of Objects: adding '"..\output\os_dbg.o"'
+### List of Objects: adding '"..\output\os_cpu_a.o"'
+### List of Objects: adding '"..\output\os_core.o"'
+### List of Objects: adding '"..\output\os_flag.o"'
+### List of Objects: adding '"..\output\os_mbox.o"'
+### List of Objects: adding '"..\output\os_mem.o"'
+### List of Objects: adding '"..\output\os_mutex.o"'
+### List of Objects: adding '"..\output\os_q.o"'
+### List of Objects: adding '"..\output\os_sem.o"'
+### List of Objects: adding '"..\output\os_task.o"'
+### List of Objects: adding '"..\output\os_time.o"'
+### List of Objects: adding '"..\output\os_tmr.o"'
+### List of Objects: adding '"..\output\timer.o"'
+### List of Objects: adding '"..\output\uip.o"'
+### List of Objects: adding '"..\output\uip_arp.o"'
+### List of Objects: adding '"..\output\clock-arch.o"'
+### List of Objects: adding '"..\output\icmp.o"'
+### List of Objects: adding '"..\output\udp_server.o"'
+### List of Objects: adding '"..\output\tcp_server.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "..\output\main.o" "..\output\os_apphooks.o" "..\output\menu.o" "..\output\cmd_process.o" "..\output\optics_judge.o" "..\output\user_timeticks.o" "..\output\delay.o" "..\output\queue.o" "..\output\lpc17xx_emac.o" "..\output\uart0.o" "..\output\lcd16032.o" "..\output\adc.o" "..\output\drv595.o" "..\output\lpc177x_8x_eeprom.o" "..\output\osw.o" "..\output\rtc.o" "..\output\at24c512.o" "..\output\ds18b20.o" "..\output\cat1025.o" "..\output\startup_lpc17xx.o" "..\output\core_cm3.o" "..\output\system_lpc177x_8x.o" "..\output\os_cpu_c.o" "..\output\os_dbg.o" "..\output\os_cpu_a.o" "..\output\os_core.o" "..\output\os_flag.o" "..\output\os_mbox.o" "..\output\os_mem.o" "..\output\os_mutex.o" "..\output\os_q.o" "..\output\os_sem.o" "..\output\os_task.o" "..\output\os_time.o" "..\output\os_tmr.o" "..\output\timer.o" "..\output\uip.o" "..\output\uip_arp.o" "..\output\clock-arch.o" "..\output\icmp.o" "..\output\udp_server.o" "..\output\tcp_server.o" --library_type=microlib --feedback "..\Output\Project.fed" 
+--strict --scatter "..\Output\Project.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list "..\Listing\Project.map" -o "..\Output\Project.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '..\Output\Project.axf'
+### ADS-LD Command File: '..\Output\Project.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '..\Output\Project.lnp', Handle=0x00000250
+### Writing '.lnp' file
+### ADS-LD Command file '..\Output\Project.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

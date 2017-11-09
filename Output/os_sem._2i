@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\Core -I..\Libraries\Device\include -I..\Startup -I..\User -I..\ucOSII2.91\Config -I..\ucOSII2.91\Ports -I..\ucOSII2.91\Source -I..\ucOSII2.91\Cpu -I..\Hardware\uart -I..\Hardware\led -I..\Hardware\74hc595 -I..\Hardware\lcd16032 -I..\Hardware\delay -I..\uip\lib -I..\uip\arch\STM32 -I..\uip\src -I..\uip\app -I..\uip\app\http -I..\Hardware\DP83848 -I..\Hardware\ADC -I..\Hardware\OSW -I..\Hardware\RTC -I..\Hardware\AT24C512 -I..\Hardware\eeprom -I..\Hardware\DS18B20 -I..\Hardware\I2C
+-I "D:\Program Files\Keil\ARM\RV31\INC"
+-I "D:\Program Files\Keil\ARM\CMSIS\Include"
+-I "D:\Program Files\Keil\ARM\Inc\NXP\LPC177x_8x"
+-DLPC177x_8x -o ..\output\os_sem.o --omf_browse ..\output\os_sem.crf --depend ..\output\os_sem.d --feedback "..\Output\Project.fed" "..\ucOSII2.91\Source\os_sem.c"
