@@ -122,7 +122,7 @@ uint8 UART1Get(void)
     if ((LPC_UART1->LSR & 0x00000001) == 0)
     {                                           /* 没有收到数据 */
         LPC_UART1->IER = LPC_UART1->IER | 0x01; /* 允许接收中断 */
-			  OSSemPend(Uart1Sem, 1, &err); 
+			  OSSemPend(Uart1Sem, 0, &err); 
     }
     err = LPC_UART1->RBR;                       /* 读取收到的数据 */
     return err;

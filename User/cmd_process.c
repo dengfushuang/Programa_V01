@@ -27,7 +27,6 @@ uint16 cmd_process( char* sprintf_buf )
 {
 	  uint8  i;
 	  uint16 sprintf_len = 0;
-
 #ifdef TYPE_FSW
 	  uint8 temp;
 #endif	
@@ -46,18 +45,23 @@ uint16 cmd_process( char* sprintf_buf )
 						//<AD01_INFO_?>  <AD01_INFO_12345678>
 					  if( (strstr((char*)&sprintf_buf[6], "INFO_") != NULL) && (sprintf_buf[12] == '>' || sprintf_buf[19] == '>') )
 						{
-							  if(sprintf_buf[11] == '?')
-								    sprintf_len = sprintf((char *)sprintf_buf, "<AD%02u_INFO_%s_%s>\n", ADDR, type[EPROM.TYPE], EPROM.MN);
-								else
+							if(sprintf_buf[11] == '?')
+							{
+								sprintf_len = sprintf((char *)sprintf_buf, "<AD%02u_INFO_%s_%s>\n", ADDR, type[EPROM.TYPE], EPROM.MN); 
+							}
+						    else
+							{
+								for(i=0; i<8; i++)
 								{
-								    for(i=0; i<8; i++)
-										    EPROM.MN[i] = sprintf_buf[11+i];
-									  EPROM.MN[8] = '\0';
-									  Save_To_EPROM((uint8_t *)&EPROM.MN[0], 9);
-										sprintf((char *)cfm, "<%02d_%01u_%s>\n", ADDR, EPROM.TYPE, EPROM.MN);
-										UART1Write_Str((uint8 *)cfm);
-									  sprintf_len = sprintf((char *)sprintf_buf, "<AD%02u_INFO_OK>\n", ADDR);
+									EPROM.MN[i] = sprintf_buf[11+i];
 								}
+										
+								EPROM.MN[8] = '\0';
+								Save_To_EPROM((uint8_t *)&EPROM.MN[0], 9);
+								sprintf((char *)cfm, "<%02d_%01u_%s>\n", ADDR, EPROM.TYPE, EPROM.MN);
+								UART1Write_Str((uint8 *)cfm);
+								sprintf_len = sprintf((char *)sprintf_buf, "<AD%02u_INFO_OK>\n", ADDR);
+							}
 						}
 						
 						//<AD01_RESET> 设备复位
@@ -243,7 +247,7 @@ uint16 cmd_process( char* sprintf_buf )
 									if( *cp=='?' )
 									{   
 										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_W_",EPROM.address,link_num,CHANNEL_NUM);
-										for(i=0;i<CHANNEL_NUM;i++)
+										for(i = 0;i < CHANNEL_NUM;i ++)
 										{
 											sprintf_len = sprintf_len+sprintf((char *)&sprintf_buf[sprintf_len],"%01u" ,EPROM.wavelength[i]);
 										}
@@ -297,12 +301,40 @@ uint16 cmd_process( char* sprintf_buf )
 							{  
 								if(link_num == 0)//00表示所有通道
 								{
-									 if(*cp1 == '?')
+									if(*cp1 == '?')
 									{
 										uint8 order_size; 
+										uint8 len;
 										order_size=(CHANNEL_NUM-1)/8+1;
-										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_%02u_A_%s>" ,\
-									    EPROM.address,link_num,CHANNEL_NUM,order_size,(char *)PD_INFO);
+//										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_%02u_A_%s>" ,\
+//									    EPROM.address,link_num,CHANNEL_NUM,order_size,(char *)PD_INFO);
+										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_%02u_A_" ,\
+									    EPROM.address,link_num,CHANNEL_NUM,order_size);
+										len = 0;
+										for(i = 0 ; i < CHANNEL_NUM ; i++)
+										{
+											if(EPROM.q_power[i] >= 0)
+											{
+												temp_arry[0] = '+';
+												data_temp2 =  EPROM.q_power[i]*100;
+											}
+											else
+											{
+												temp_arry[0] = '-';
+												data_temp2 = (0 - EPROM.q_power[i])*100;
+											}
+											temp_arry[1] = data_temp2/1000+'0';
+											temp_arry[2] = data_temp2%1000/100+'0';
+											temp_arry[3] = '.';
+											temp_arry[4] = data_temp2%100/10+'0';
+											temp_arry[5] = data_temp2%10+'0';
+                                            memcpy((char *)&PD_INFO[6*i],temp_arry,6);
+											len +=6;
+										}
+										PD_INFO[len] = '>';
+										len += 1;
+										memcpy((char *)&sprintf_buf[sprintf_len],PD_INFO,len);
+										sprintf_len += len;
 									}
 									else if(*cp1=='-')      
 									{
@@ -382,6 +414,7 @@ uint16 cmd_process( char* sprintf_buf )
 									temp_arry[3] = '.';
 									temp_arry[4] = data_temp2%100/10+'0';
 									temp_arry[5] = data_temp2%10+'0';
+									temp_arry[6] = '\0';
 
 									sprintf_len = sprintf((char *)cp1,"%s>",temp_arry);                                               
 									sprintf_len+=16;
