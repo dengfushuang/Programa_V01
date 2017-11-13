@@ -39,18 +39,59 @@ typedef double         fp64;                    /* double precision floating poi
 *********************************************************************************************************/
 #define  TASK_STK_SIZE                128
 
+	
 /*********************************************************************************************************
-  引脚定义
+      
+*********************************************************************************************************/	
+#define FSW    0
+#define OTDR   1
+#define WDM    2
+#define OPM    3
+#define OS     4
+/*********************************************************************************************************
+  光开关定义
+*********************************************************************************************************/
+#ifdef TYPE_FSW
+    #define  RUN_LED_INIT    LPC_GPIO3->DIR |= (1<<2)
+    #define  RUN_LED_H       LPC_GPIO3->SET |= (1<<2)
+    #define  RUN_LED_L       LPC_GPIO3->CLR |= (1<<2)
+    #define  OPS_PIN_INIT    LPC_GPIO4->DIR |= (0x0ff<<5) 
+    #define  OPS_RST         LPC_GPIO4->CLR |= (1<<12)
+    #define  OPS_NRST        LPC_GPIO4->SET |= (1<<12)	
+#endif
+/*********************************************************************************************************
+  光采集定义
 *********************************************************************************************************/
 #ifdef   TYPE_OPM
-#define  RUN_LED_INIT    LPC_GPIO1->DIR |= (1u<<31)
-#define  RUN_LED_H       LPC_GPIO1->SET |= (1u<<31)
-#define  RUN_LED_L       LPC_GPIO1->CLR |= (1u<<31)
-#else
-#define  RUN_LED_INIT    LPC_GPIO3->DIR |= (1<<2)
-#define  RUN_LED_H       LPC_GPIO3->SET |= (1<<2)
-#define  RUN_LED_L       LPC_GPIO3->CLR |= (1<<2)
+    #define  RUN_LED_INIT    LPC_GPIO1->DIR |= (1u<<31)
+    #define  RUN_LED_H       LPC_GPIO1->SET |= (1u<<31)
+    #define  RUN_LED_L       LPC_GPIO1->CLR |= (1u<<31)
+    #define  OPM_CTR_PIN_INIT  LPC_GPIO1->DIR |= (0x00007fffu << 15);LPC_GPIO0->DIR |= (0x0000003fu << 4) ; LPC_GPIO0->DIR |= (0x00000007u << 29);\
+                               LPC_GPIO2->DIR |= (0x000001ffu << 0) ;LPC_GPIO2->DIR |= (0x00000007u << 11); LPC_GPIO3->DIR |= (0x0000003fu << 2);\
+    						   LPC_GPIO3->DIR |= (0x00000007u << 24);LPC_GPIO4->DIR |= (0x000001ffu << 5)
+    #define AMP_CHANNEL  8   //运算放大器比例通道数 8通道
+    #define ADC_USE_NUM  2   //ADC使用通道数
+    #define CHANNEL_NUM 16   //最大通道数为16路
 #endif
+/*********************************************************************************************************
+  OTDR业务盘定义
+*********************************************************************************************************/
+#ifdef TYPE_OPDR
+    #define  OTDR_INIT       LPC_GPIO2->DIR |= (1<<9);LPC_GPIO5->DIR |= (1<<0)
+    #define  OTDR_PWR_ON     LPC_GPIO5->SET |= (1<<0)       
+    #define  OTDR_PWR_OFF    LPC_GPIO5->CLR |= (1<<0)
+#endif
+/*********************************************************************************************************
+  光源定义
+*********************************************************************************************************/
+#ifdef  TYPE_OS
+    #define  RUN_LED_INIT    LPC_GPIO1->DIR |= (1u<<31)
+    #define  RUN_LED_H       LPC_GPIO1->SET |= (1u<<31)
+    #define  RUN_LED_L       LPC_GPIO1->CLR |= (1u<<31)
+    #define OS_CH  8   //光源通道数 8通道
+#endif
+
+
 
 #define  ONLINE_PIN_INIT LPC_GPIO5->DIR |= (1<<4)
 #define  ONLINE          LPC_GPIO5->CLR |= (1<<4)
@@ -62,13 +103,7 @@ typedef double         fp64;                    /* double precision floating poi
 #define  SW_CON2_H       LPC_GPIO2->CLR |= (1<<6)
 #define  SW_CON2_L       LPC_GPIO2->CLR |= (1<<6)
 
-#define  OPS_PIN_INIT    LPC_GPIO4->DIR |= (0x1ff<<5) 
-#define  OPS_RST         LPC_GPIO4->CLR |= (1<<12)
-#define  OPS_NRST        LPC_GPIO4->SET |= (1<<12)
 
-#define  OTDR_INIT       LPC_GPIO2->DIR |= (1<<9);LPC_GPIO5->DIR |= (1<<0)
-#define  OTDR_PWR_ON     LPC_GPIO5->SET |= (1<<0)       
-#define  OTDR_PWR_OFF    LPC_GPIO5->CLR |= (1<<0)
 
 //#define  CHANNEL_NUM       1            //链路数宏定义
 #define  LOG_ADDR          1000         //日志存储地址
@@ -76,27 +111,27 @@ typedef double         fp64;                    /* double precision floating poi
 
 __packed struct EPROM_DATA {
 	
-		uint8  BPS;                  //串口波特率  1:2400 2:4800 3:9600 4:14400 5:19200 6:38400 7:56000 8:57600 9:115200
-
-		uint8  TYPE;                 //业务盘类型: 0 FSW, 1 OTDR, 2 WDM, 3 OPM
-		char   MN[9];                //业务盘机器码
-		uint16 maxch;                //最大通道数
-		uint16 sbch;                 //扫描启始通道
-		uint16 sech;                 //扫描结束通道
+		uint8    BPS;                  //串口波特率  1:2400 2:4800 3:9600 4:14400 5:19200 6:38400 7:56000 8:57600 9:115200
+		uint8    TYPE;                 //业务盘类型: 0 FSW, 1 OTDR, 2 WDM, 3 OPM
+		char     MN[9];                //业务盘机器码
+		uint16   maxch;                //最大通道数
+		uint16   sbch;                 //扫描启始通道
+		uint16   sech;  
+	    uint8    address;             //设备地址: 00 ~ 99。                //扫描结束通道
 #ifdef  TYPE_OPM
-	    uint16 Start_delay;    		//开机延时时间	
-	    uint8  address;             //设备地址: 00 ~ 99。
-	    uint8 way_switch[CHANNEL_NUM];
-		int16   ADC_just[CHANNEL_NUM][2];   //功率的校准补偿系数
-	    uint8 fuhao[CHANNEL_NUM][2];
-	    uint8 fuhao_just[CHANNEL_NUM][2];
-	    uint16 DBM_delay[CHANNEL_NUM];       //功率基准值
-		int8   ADC_just_36[CHANNEL_NUM][2];   //大于36dB功率的校准补偿系数
-		uint8   wavelength[CHANNEL_NUM];          //波长            1 1550     0 1310
-	    float   q_power[CHANNEL_NUM];             //告警功率切换点
+	    uint16   Start_delay;    		//开机延时时间	
+	    uint8    light_type
+	    uint8    way_switch[CHANNEL_NUM];
+		int16    ADC_just[CHANNEL_NUM][2];   //功率的校准补偿系数
+	    uint8    fuhao[CHANNEL_NUM][2];
+	    uint8    fuhao_just[CHANNEL_NUM][2];
+	    uint16   DBM_delay[CHANNEL_NUM];       //功率基准值
+		int8     ADC_just_36[CHANNEL_NUM][2];   //大于36dB功率的校准补偿系数
+		uint8    wavelength[CHANNEL_NUM];          //波长            1 1550     0 1310
+	    float    q_power[CHANNEL_NUM];             //告警功率切换点
 #endif
 #ifdef  TYPE_OS
-	    uint8 OS_Channel[CHANNEL_NUM];       //光源状态：0-关闭、1-开启
+	    uint8 OS_Channel[OS_CH];       //光源状态：0-关闭、1-开启
 #endif
 	    
 };
@@ -106,7 +141,6 @@ extern const  char  type[][5];
 extern uint8  u2RcvBuf[];
 extern uint8  cfm[];
 extern uint8  ADDR;
-extern uint8  OPS_CH;
 extern uint8  scan_flag;
 extern uint8  stime;
 extern struct EPROM_DATA  EPROM;

@@ -35,4 +35,4 @@
 ..\output\adc.o: ..\uip\src\timer.h
 ..\output\adc.o: ..\uip\arch\STM32\clock-arch.h
 ..\output\adc.o: ..\User\includes\gpio_config.h
-..\output\adc.o: ..\Hardware\uart\uart0.h
+..\output\adc.o: ..\Hardware\uart\uart1.h

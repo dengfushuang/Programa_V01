@@ -21,7 +21,7 @@
 #include "ADC.h"
 #include "LPC177x_8x.h"
 #include "drv595.h"
-#include "uart0.h"
+#include "uart1.h"
 
 #ifdef   TYPE_OPM
 
@@ -48,31 +48,28 @@ void ADC_int(uint32 rate)
     //使能以ADC控制器电源
     LPC_SC->PCONP |= (1U<<12);
 
-    // Enable  Ethernet Pins.
-#if ADC_USE_NUM >=1	
+
     LPC_IOCON->P0_23 = 0x01;     //ADC0[0]
-#endif
-#if ADC_USE_NUM >=2	
     LPC_IOCON->P0_24 = 0x01;     //ADC0[1]
-#endif
-#if ADC_USE_NUM >=3	
-    LPC_IOCON->P0_25 = 0x01;     //ADC0[2]
-#endif
-#if ADC_USE_NUM >=4
-    LPC_IOCON->P0_26 = 0x01;     //ADC0[3]
-#endif
-#if ADC_USE_NUM >=5	
-    LPC_IOCON->P1_30 = 0x03;     //ADC0[4]
-#endif
-#if ADC_USE_NUM >=6	
-    LPC_IOCON->P1_31 = 0x03;     //ADC0[5]
-#endif
-#if ADC_USE_NUM >=7	
-    LPC_IOCON->P0_12 = 0x03;     //ADC0[6]
-#endif
-#if ADC_USE_NUM >=8	
-    LPC_IOCON->P0_13 = 0x03;     //ADC0[7]
-#endif
+
+//#if ADC_USE_NUM >=3	
+//    LPC_IOCON->P0_25 = 0x01;     //ADC0[2]
+//#endif
+//#if ADC_USE_NUM >=4
+//    LPC_IOCON->P0_26 = 0x01;     //ADC0[3]
+//#endif
+//#if ADC_USE_NUM >=5	
+//    LPC_IOCON->P1_30 = 0x03;     //ADC0[4]
+//#endif
+//#if ADC_USE_NUM >=6	
+//    LPC_IOCON->P1_31 = 0x03;     //ADC0[5]
+//#endif
+//#if ADC_USE_NUM >=7	
+//    LPC_IOCON->P0_12 = 0x03;     //ADC0[6]
+//#endif
+//#if ADC_USE_NUM >=8	
+//    LPC_IOCON->P0_13 = 0x03;     //ADC0[7]
+//#endif
 
     //进行ADC模块设置，其中x<<n表示第n位设置为x(若x超过一位，则向高位顺延)
     LPC_ADC->CR = 0;
@@ -85,7 +82,7 @@ void ADC_int(uint32 rate)
                   (1 << 24)                    |     // START = 1 ，启动ADC转换
                   (0 << 27);                         // EDGE = 0 (CAP/MAT引脚下降沿触发ADC转换)
 
-    while( (LPC_ADC->GDR&0x80000000)==0 );    // 等待转换结束
+    while( (LPC_ADC->GDR&0x80000000) == 0 );    // 等待转换结束
 }
 
 /*********************************************************************************************************
@@ -98,30 +95,23 @@ void ADC_int(uint32 rate)
 uint32 addo(uint8 ch)
 {
     uint32 ADC_Data;
-#if ADC_USE_NUM >=1
+//	uint8 ab[5];
+//	uint32 temp1,temp2;
     if(ch==0)		LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x01|(1 << 24);    // 设置通道1，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=2
+
     else if(ch==1)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x02|(1 << 24);    // 设置通道2，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=3
+
     else if(ch==2)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x04|(1 << 24);    // 设置通道3，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=4
+
     else if(ch==3)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x08|(1 << 24);    // 设置通道4，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=5
+
     else if(ch==4)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x10|(1 << 24);    // 设置通道5，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=5
+
     else if(ch==5)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x20|(1 << 24);    // 设置通道6，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=7
+
     else if(ch==6)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x40|(1 << 24);    // 设置通道7，并进行第一次转换
-#endif
-#if ADC_USE_NUM >=8
+
     else if(ch==7)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x80|(1 << 24);    // 设置通道8，并进行第一次转换
-#endif
 //------------------------------------------
     
     while( (LPC_ADC->GDR&0x80000000)==0 );               // 等待转换结束
@@ -129,8 +119,14 @@ uint32 addo(uint8 ch)
     while( (LPC_ADC->GDR&0x80000000)==0 );               // 等待转换结束
 
     ADC_Data = LPC_ADC->GDR;                             // 读取ADC结果
-    ADC_Data = (ADC_Data>>6)&0x3FF;                      // 提取AD转换值 (bit4~bit15 为12位的ADC值)，现在只取10位的ADC值
-
+    ADC_Data = (ADC_Data>>6) & 0x3FF;                      // 提取AD转换值 (bit4~bit15 为12位的ADC值)，现在只取10位的ADC值
+//	ab[0] = ADC_Data/1000 + '0';
+//	temp1 = ADC_Data%1000;
+//	ab[1] = temp1/100 + '0';
+//	temp2 = ADC_Data%100;
+//	ab[2] = temp2/10 + '0';
+//	ab[3] = ADC_Data%10 + '0';
+//    UART1Put_str(ab,4);
     return ADC_Data;
 }
 
@@ -607,10 +603,7 @@ float test_optics_collect_B( uint8 input_channel_num ,uint8 way_temp)
 	{
 		ADC_num = 1;
 	}
-	
-    
-    //
-      
+  
 
 ADC_STAR:
 

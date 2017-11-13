@@ -10,7 +10,10 @@
 #include "uart2.h"
 #include "lpc177x_8x_eeprom.h"
 #include "ADC.h"
-
+extern uint8 ADDR;
+#ifdef TYPE_FSW
+extern uint8 OPS_CH;
+#endif
 #ifdef TYPE_OPM
 	   uint8  i2c_set;
 	   uint8 re_set;
@@ -31,12 +34,17 @@ uint16 cmd_process( char* sprintf_buf )
 	  uint8 temp;
 #endif	
 #ifdef TYPE_OPM	
-	  char  *cp,*cp1,*cp2;
+      char  *cp,*cp1,*cp2;
+	  uint8  data_temp;
 	  uint8  link_num;
-      uint8  data_temp;
 	  uint32 data_temp2;
       uint8  temp_arry[8];
       uint8 err;	
+#endif
+#ifdef TYPE_OS
+	  char  *cp,*cp1,*cp2;
+	  uint8  data_temp;
+	  uint8  link_num;
 #endif
     if( strstr(&sprintf_buf[0], "<AD") != NULL )
     {
@@ -331,10 +339,8 @@ uint16 cmd_process( char* sprintf_buf )
                                             memcpy((char *)&PD_INFO[6*i],temp_arry,6);
 											len +=6;
 										}
-										PD_INFO[len] = '>';
-										len += 1;
-										memcpy((char *)&sprintf_buf[sprintf_len],PD_INFO,len);
-										sprintf_len += len;
+										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_%02u_A_%s>" ,\
+									    EPROM.address,link_num,CHANNEL_NUM,order_size,(char *)PD_INFO);
 									}
 									else if(*cp1=='-')      
 									{
@@ -503,15 +509,36 @@ uint16 cmd_process( char* sprintf_buf )
 						//<ADxx_yy_POW_?>查询通道当前功率值
 						else if( (cp=strstr((char*)&sprintf_buf[8],"_POW_?"))!=NULL && sprintf_buf[14]=='>' )
 						{
-							cp1 = &sprintf_buf[6];
-							cp2 = &sprintf_buf[7];
-							link_num = *cp1*10+*cp2;
-							if(link_num<= CHANNEL_NUM )
+							link_num = (sprintf_buf[6] - '0')*10 + (sprintf_buf[7] - '0');
+							if(link_num <= CHANNEL_NUM )
 							{
 								if(link_num==0)//00表示所有通道
 								{   
 									uint8 order_size; 
+									uint8 len;
 									order_size=(CHANNEL_NUM-1)/8+1;
+									for(i = 0 ; i < CHANNEL_NUM ; i++)
+									{
+										if(power[i] >= 0)
+										{
+											temp_arry[0] = '+';
+											data_temp2 =  power[i]*100;
+										}
+										else
+										{
+											temp_arry[0] = '-';
+											data_temp2 = (0 - power[i])*100;
+										}
+										temp_arry[1] = data_temp2/1000+'0';
+										temp_arry[2] = data_temp2%1000/100+'0';
+										temp_arry[3] = '.';
+										temp_arry[4] = data_temp2%100/10+'0';
+										temp_arry[5] = data_temp2%10+'0';
+										memcpy((char *)&MD_INFO[6*i],temp_arry,6);
+										len +=6;
+									}
+									//memcpy((char *)&sprintf_buf[sprintf_len],MD_INFO,len);
+									//sprintf_len += len;
 								    sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_%02u_POW_%s>" ,\
 											  EPROM.address,link_num,CHANNEL_NUM,order_size,(char *)MD_INFO);
 								}
@@ -522,19 +549,20 @@ uint16 cmd_process( char* sprintf_buf )
 										temp_arry[0] = '+';
 										data_temp2 =  power[link_num-1]*100;
 									}
-								else
-								{
-									temp_arry[0] = '-';
-									data_temp2 = (0 - power[link_num-1])*100;
-								}
-								temp_arry[1] = data_temp2/1000+'0';
-								temp_arry[2] = data_temp2%1000/100+'0';
-								temp_arry[3] = '.';
-								temp_arry[4] = data_temp2%100/10+'0';
-								temp_arry[5] = data_temp2%10+'0';
-
-								sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_POW_%s>" ,\
-											  EPROM.address,link_num,temp_arry);
+									else
+									{
+										temp_arry[0] = '-';
+										data_temp2 = (0 - power[link_num-1])*100;
+									}
+									temp_arry[1] = data_temp2/1000+'0';
+									temp_arry[2] = data_temp2%1000/100+'0';
+									temp_arry[3] = '.';
+									temp_arry[4] = data_temp2%100/10+'0';
+									temp_arry[5] = data_temp2%10+'0';
+                                    temp_arry[6] = '\0';
+									temp_arry[7] = '\0';
+									sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_POW_%s>" ,\
+												  EPROM.address,link_num,temp_arry);
 								}
 							}
 							else goto ERROR;
@@ -545,7 +573,7 @@ uint16 cmd_process( char* sprintf_buf )
 						{
 							cp1 = &sprintf_buf[3];
 							cp2 = &sprintf_buf[4];
-							data_temp = (*cp1-'0')*10+*cp2;
+							data_temp = (*cp1-'0')*10+(*cp2 - '0');
 							if(EPROM.address == data_temp)
 							{
 								sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_MAX_%03u>" ,\
@@ -555,6 +583,80 @@ uint16 cmd_process( char* sprintf_buf )
 							{
 								sprintf_len = 0;
 							}
+						}
+          #endif
+		  #ifdef TYPE_OS 
+						else if((cp=strstr((char*)&sprintf_buf[5],"_MAX_?"))!=NULL && sprintf_buf[11]=='>' )
+						{
+							cp1 = &sprintf_buf[3];
+							cp2 = &sprintf_buf[4];
+							data_temp = (*cp1-'0')*10+(*cp2 - '0');
+							if(EPROM.address == data_temp)
+							{
+								sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_MAX_%03u>" ,EPROM.address,OS_CH);
+							}
+							else
+							{
+								sprintf_len = 0;
+							}
+						}
+						else if( (cp=strstr((char*)&sprintf_buf[8],"_S_"))!=NULL && sprintf_buf[12]=='>' )
+						{   link_num = (sprintf_buf[6]-'0')*10+(sprintf_buf[7]-'0'); 
+							cp = &sprintf_buf[11];
+							if( link_num<= OS_CH )
+							{  
+								if(link_num==0)//00表示所有通道
+								{
+									if( *cp=='?' )
+									{   
+										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_S_",EPROM.address,link_num,OS_CH);
+										for(i = 0;i < OS_CH;i ++)
+										{
+											sprintf_len = sprintf_len+sprintf((char *)&sprintf_buf[sprintf_len],"%01u" ,EPROM.OS_Channel[i]);
+										}
+										sprintf_len = sprintf_len+sprintf((char *)&sprintf_buf[sprintf_len],">");
+									}
+									else if( *cp=='0' || *cp =='1')
+									{
+										for(i=0;i<OS_CH;i++)
+										{
+											EPROM.OS_Channel[i] = *cp-'0';
+											//控制光源
+										}
+										if(*cp == '0')
+										{
+											OS_ALL_L;
+										}else if(*cp == '1')
+										{
+											OS_ALL_H;
+										}
+										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_S_OK>",EPROM.address,link_num);                    
+        								Save_To_EPROM((uint8 *)&EPROM.OS_Channel,OS_CH);
+									}
+									else goto ERROR;
+								}
+								else if( *cp == '?' )
+								{
+									*cp=EPROM.OS_Channel[link_num-1]+'0';
+									sprintf_len = 13;
+								}
+								else if( *cp == '0' || *cp == '1' )
+								{
+									EPROM.OS_Channel[link_num-1] = *cp-'0'; 
+									if(*cp == '0')
+									{
+										OS_L(link_num);
+									}
+									else if(*cp == '1')
+									{
+										OS_H(link_num);
+									}
+									sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_S_OK>",EPROM.address,link_num);                    
+									Save_To_EPROM((uint8 *)&EPROM.OS_Channel[link_num-1], 1);
+								}
+								else goto ERROR;
+							}
+							else goto ERROR;
 						}
           #endif						
 						else

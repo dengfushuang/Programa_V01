@@ -22,13 +22,13 @@ extern "C"{
 #endif
 #endif /* __cplusplus */
 
-
+#ifdef TYPE_OPM
 extern uint8 hardware_way[CHANNEL_NUM];
 extern float power[CHANNEL_NUM];  
 extern float power_count[CHANNEL_NUM];
 extern float q_power[CHANNEL_NUM];
 extern uint8 warn[CHANNEL_NUM];			//�澯״̬
-
+#endif
 extern void adcdeal(uint8 input_channel_num,uint32 way, float adc);
 extern void ADC_int(uint32 rate);
 extern uint32 addo(uint8 adnum);

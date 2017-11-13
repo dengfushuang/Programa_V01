@@ -29,3 +29,11 @@
 ..\output\user_app_task.o: ..\uip\arch\STM32\clock-arch.h
 ..\output\user_app_task.o: ..\Hardware\ADC\ADC.h
 ..\output\user_app_task.o: ..\User\includes\gpio_config.h
+..\output\user_app_task.o: ..\Hardware\uart\uart1.h
+..\output\user_app_task.o: ..\User\config.h
+..\output\user_app_task.o: D:\Keil\ARM\ARMCC\Bin\..\include\setjmp.h
+..\output\user_app_task.o: D:\Keil\ARM\ARMCC\Bin\..\include\rt_misc.h
+..\output\user_app_task.o: D:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
+..\output\user_app_task.o: ..\Hardware\uart\uart0.h
+..\output\user_app_task.o: ..\User\config.h
+..\output\user_app_task.o: ..\Hardware\74hc595\drv595.h

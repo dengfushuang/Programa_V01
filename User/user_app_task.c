@@ -1,4 +1,5 @@
 #include "user_app_task.h"
+#include "uart1.h"
 #ifdef  TYPE_OPM
 extern struct EPROM_DATA EPROM;           //保存EPROM设置参数的结构体
 extern uint8 hardware_way[CHANNEL_NUM];  //真实的硬件档位
@@ -21,13 +22,13 @@ void  TaskCollectA(void *pdata)
     uint8 i,input_channel;
     float  dBm[4];
     OS_CPU_SR  cpu_sr;
-
     for ( input_channel = 0 ; input_channel	< (CHANNEL_NUM/2) ;input_channel++ )
     {
         hardware_way[input_channel] = 4;        //初始化模拟开关位置
     }
     OSTimeDly(100);
-    ADC_int(400);                   //ADC初始化
+    ADC_int(400); 
+	//ADC初始化
     OSTimeDly(100);
     while(1)
     {
@@ -65,10 +66,9 @@ void  TaskCollectA(void *pdata)
             }
             //-----------------------------------------------//
             
-            OSTimeDly(10);
+           OSTimeDly(10);
         }
 
-        
         OSTimeDly(10);
     }
 }
