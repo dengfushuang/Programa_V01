@@ -5,9 +5,15 @@ extern "C" {
 #endif
 	
 /*********************************************************************************************************
-  板卡类型
+	板卡类型:
+	     TYPE_FSW
+	   YPE_OTDR
+	     TYPE_WDM
+	     TYPE_OPM_ONLINE
+	     TYPE_OPM_OFFLINE
+	     TYPE_OPM_OS
 *********************************************************************************************************/
-#define TYPE_OS
+#define TYPE_OPM_ONLINE
 
 
 #ifdef __cplusplus

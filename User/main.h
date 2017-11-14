@@ -46,8 +46,9 @@ typedef double         fp64;                    /* double precision floating poi
 #define FSW    0
 #define OTDR   1
 #define WDM    2
-#define OPM    3
-#define OS     4
+#define OPM1   3
+#define OPM2   4
+#define OS     5
 /*********************************************************************************************************
   光开关定义
 *********************************************************************************************************/
@@ -62,7 +63,15 @@ typedef double         fp64;                    /* double precision floating poi
 /*********************************************************************************************************
   光采集定义
 *********************************************************************************************************/
-#ifdef   TYPE_OPM
+#ifdef TYPE_OPM_ONLINE
+#define CHTEMP   1
+#define TYPE_OPM
+#endif
+#ifdef TYPE_OPM_OFFLINE
+#define CHTEMP   3
+#define TYPE_OPM
+#endif
+#ifdef  TYPE_OPM 
     #define  RUN_LED_INIT    LPC_GPIO1->DIR |= (1u<<31)
     #define  RUN_LED_H       LPC_GPIO1->SET |= (1u<<31)
     #define  RUN_LED_L       LPC_GPIO1->CLR |= (1u<<31)
@@ -117,18 +126,18 @@ __packed struct EPROM_DATA {
 		uint16   maxch;                //最大通道数
 		uint16   sbch;                 //扫描启始通道
 		uint16   sech;  
-	    uint8    address;             //设备地址: 00 ~ 99。                //扫描结束通道
+	  uint8    address;             //设备地址: 00 ~ 99。                //扫描结束通道
 #ifdef  TYPE_OPM
-	    uint16   Start_delay;    		//开机延时时间	
-	    uint8    light_type
-	    uint8    way_switch[CHANNEL_NUM];
+	  uint16   Start_delay;    		//开机延时时间	
+	  uint8    light_type;            //光采集类型：0-----在线采集；1-------非在线采集
+	  uint8    way_switch[CHANNEL_NUM];
 		int16    ADC_just[CHANNEL_NUM][2];   //功率的校准补偿系数
-	    uint8    fuhao[CHANNEL_NUM][2];
-	    uint8    fuhao_just[CHANNEL_NUM][2];
-	    uint16   DBM_delay[CHANNEL_NUM];       //功率基准值
+	  uint8    fuhao[CHANNEL_NUM][2];
+	  uint8    fuhao_just[CHANNEL_NUM][2];
+	  uint16   DBM_delay[CHANNEL_NUM];       //功率基准值
 		int8     ADC_just_36[CHANNEL_NUM][2];   //大于36dB功率的校准补偿系数
 		uint8    wavelength[CHANNEL_NUM];          //波长            1 1550     0 1310
-	    float    q_power[CHANNEL_NUM];             //告警功率切换点
+	  float    q_power[CHANNEL_NUM];             //告警功率切换点
 #endif
 #ifdef  TYPE_OS
 	    uint8 OS_Channel[OS_CH];       //光源状态：0-关闭、1-开启
@@ -137,7 +146,7 @@ __packed struct EPROM_DATA {
 };
 
 extern const  char  SVersion[];  //模块软件版本号
-extern const  char  type[][5];
+extern const  char  type[][6];
 extern uint8  u2RcvBuf[];
 extern uint8  cfm[];
 extern uint8  ADDR;

@@ -605,9 +605,9 @@ uint16 cmd_process( char* sprintf_buf )
 							cp = &sprintf_buf[11];
 							if( link_num<= OS_CH )
 							{  
-								if(link_num==0)//00表示所有通道
+								if(link_num == 0)//00表示所有通道
 								{
-									if( *cp=='?' )
+									if( *cp == '?' )
 									{   
 										sprintf_len = sprintf((char *)sprintf_buf,"<AD%02u_%02u_%02u_S_",EPROM.address,link_num,OS_CH);
 										for(i = 0;i < OS_CH;i ++)

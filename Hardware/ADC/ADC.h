@@ -33,7 +33,6 @@ extern void adcdeal(uint8 input_channel_num,uint32 way, float adc);
 extern void ADC_int(uint32 rate);
 extern uint32 addo(uint8 adnum);
 extern void CHANNEL(uint8 input_channel_num, uint8 way_temp);
-//extern void CHANNELB(uint8 input_channel_num, uint8 way_temp);
 extern void optics_collect(uint8 input_channel_num ,uint8 way_temp);
 extern void log114_adcdeal(uint8 ADnum ,uint32 adc);
 extern float test_optics_collect( uint8 input_channel_num ,uint8 way_temp);

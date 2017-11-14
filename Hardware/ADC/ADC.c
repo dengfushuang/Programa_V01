@@ -24,8 +24,6 @@
 #include "uart1.h"
 
 #ifdef   TYPE_OPM
-
-#define CHTEMP   1
 #define minadc  50   	              //minadc=20;太低了，应该考虑高一些（30~50），提高抗干扰能力。
 #define maxadc  1000
 extern uint8 hardware_way[CHANNEL_NUM];  //真实的硬件档位
@@ -95,8 +93,6 @@ void ADC_int(uint32 rate)
 uint32 addo(uint8 ch)
 {
     uint32 ADC_Data;
-//	uint8 ab[5];
-//	uint32 temp1,temp2;
     if(ch==0)		LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x01|(1 << 24);    // 设置通道1，并进行第一次转换
 
     else if(ch==1)	LPC_ADC->CR = (LPC_ADC->CR&0x00FFFF00)|0x02|(1 << 24);    // 设置通道2，并进行第一次转换
@@ -120,13 +116,6 @@ uint32 addo(uint8 ch)
 
     ADC_Data = LPC_ADC->GDR;                             // 读取ADC结果
     ADC_Data = (ADC_Data>>6) & 0x3FF;                      // 提取AD转换值 (bit4~bit15 为12位的ADC值)，现在只取10位的ADC值
-//	ab[0] = ADC_Data/1000 + '0';
-//	temp1 = ADC_Data%1000;
-//	ab[1] = temp1/100 + '0';
-//	temp2 = ADC_Data%100;
-//	ab[2] = temp2/10 + '0';
-//	ab[3] = ADC_Data%10 + '0';
-//    UART1Put_str(ab,4);
     return ADC_Data;
 }
 
@@ -369,39 +358,6 @@ void CHANNEL(uint8 input_channel_num, uint8 way_temp)
         break;
     }
 }
-//void CHANNELB(uint8 RTnum, uint8 way_temp)
-//{
-//    switch ( RTnum )
-//    {
-//    case 8 :
-//        CHANNEL_PIN8(way_temp);
-//        break;
-//    case 9 :
-//        CHANNEL_PIN9(way_temp);
-//        break;
-//    case 10 :
-//        CHANNEL_PIN10(way_temp);
-//        break;
-//    case 11 :
-//        CHANNEL_PIN11(way_temp);
-//        break;
-//    case 12 :
-//        CHANNEL_PIN12(way_temp);
-//        break;
-//    case 13 :
-//        CHANNEL_PIN13(way_temp);
-//        break;
-//    case 14 :
-//        CHANNEL_PIN14(way_temp);
-//        break;
-//    case 15 :
-//        CHANNEL_PIN15(way_temp);
-//        break;
-
-//    default:
-//        break;
-//    }
-//}
 /*****************************************************************************
  函 数 名  : optics_collect
  功能描述  : 控制换挡电路，采集光信号转换成光功率值
@@ -515,10 +471,6 @@ float test_optics_collect( uint8 input_channel_num ,uint8 way_temp)
 	{
 		ADC_num = 1;
 	}
-    
-    //
-    
-
 ADC_STAR:
 
     ADC_Data = (uint16)addo(ADC_num);
@@ -546,9 +498,7 @@ ADC_STAR:
 
             OS_ENTER_CRITICAL();
             CHANNEL(input_channel_num,way_temp);     	//设定到1通道
-           // CHANNEL_PIN8(way_temp);
             OS_EXIT_CRITICAL();
-           // delay_nms(5);
             OSTimeDly(10);	 		        //换挡延时时间，与探测器和电路有关，会影响到切换时间。取合适为宜。
             goto ADC_STAR;
         }
@@ -585,6 +535,10 @@ ADC_STAR:
        
     return dBm_power;
 }
+
+
+
+
 float test_optics_collect_B( uint8 input_channel_num ,uint8 way_temp)
 {
     uint8  i;
@@ -641,24 +595,6 @@ ADC_STAR:
     }     
     
     ADC_just_temp = (float)ADC_Data;
-
-/*
-    //加上校准补偿系数
-    if( EPROM.ADC_just[RTnum][EPROM.wavelength[RTnum]] > 0 )
-    {
-       for ( i = 0 ; i<EPROM.ADC_just[RTnum][EPROM.wavelength[RTnum]] ; i++ )
-       {
-           ADC_just_temp =ADC_just_temp*1.023293;
-       }
-    }
-    else if( EPROM.ADC_just[RTnum][EPROM.wavelength[RTnum]] < 0 )
-    {
-       for ( i = 0 ; i<( ~(EPROM.ADC_just[RTnum][EPROM.wavelength[RTnum]] - 1) ) ; i++ )
-       {
-           ADC_just_temp =ADC_just_temp*0.977237;
-       }
-    }  
-    */
     //加上校准补偿系数
     if( EPROM.fuhao[input_channel_num][EPROM.wavelength[input_channel_num]] == 1 )
     {

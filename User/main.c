@@ -27,7 +27,7 @@
 //************************************全局变量定义*******************************
 //********************************************************************************
 const  char  SVersion[] = "4.10\0";//模块软件版本号
-const  char  type[5][5] = {"FSW\0", "OTDR\0", "OPM\0", "WDM\0", "OS\0"};
+const  char  type[6][6] = {"FSW\0", "OTDR\0", "OPM-1\0", "OPM-2\0","WDM\0", "OS\0"};
 uint8  cfm[20];                    //确认buf
 uint8  run_flag;                   //LED 运行灯
 uint8  scan_flag;                  //扫描标志
@@ -99,8 +99,7 @@ void HW_Init(void)
 {	
 	ONLINE_PIN_INIT;
 	OFFLINE;
-	RUN_LED_INIT;
-	
+	RUN_LED_INIT;	
 #ifdef TYPE_FSW
 	OPS_PIN_INIT;
 	OPS_RST;
@@ -122,16 +121,19 @@ void HW_Init(void)
 		
 #ifdef TYPE_OPM
     OPM_CTR_PIN_INIT;
-    EPROM.TYPE = OPM;
+	#ifdef TYPE_OPM_ONLINE 
+		EPROM.TYPE = OPM1;
+	#endif
+	#ifdef TYPE_OPM_OFFLINE 
+		EPROM.TYPE = OPM2;
+	#endif
 	ADC_int(400);
 #endif
 
 #ifdef TYPE_OS
     OS_PIN_INIT;
-	//LPC_GPIO4->SET = (255<<5);
     EPROM.TYPE = OS;
 #endif
-	
 	
 	READ_EPROM_Init();
 	UART0Init();
@@ -145,8 +147,6 @@ void HW_Init(void)
 	/**LPC1778的看门狗使用内部RC时钟(500KHz),经过4次分频(500K/4=125K ,即十六进制为0X1E848)**/
 	LPC_WDT->TC  = 0X1E848;    //设置WDT定时值为1秒.
 	LPC_WDT->MOD = 0x03;       //设置WDT工作模式,启动WDT	
-
-
 
 }
 
@@ -271,17 +271,17 @@ void TaskSvr(void* pdata)
 ********************************************************************************************************/
 void TaskUart1Cmd(void* pdata)
 {
-		uint8  err;
-		uint16 len;
+    uint8  err;
+    uint16 len;
 
-		OSTimeDly(500);            //等待延时
-		while(1)
-		{
-			OSMboxPend(Uart1RcvMbox, 0, &err);         // 等待接收邮箱数据
-	        if( (len = cmd_process((char*)&u1RcvBuf)) > 0 )
-			{
-			    UART1Put_str(u1RcvBuf, len);
-			}
+    OSTimeDly(500);            //等待延时
+    while(1)
+    {
+        OSMboxPend(Uart1RcvMbox, 0, &err);         // 等待接收邮箱数据
+        if( (len = cmd_process((char*)&u1RcvBuf)) > 0 )
+        {
+            UART1Put_str(u1RcvBuf, len);
+        }
 		#ifdef TYPE_OPM	
 			eprom_set();
 		#endif
@@ -329,7 +329,6 @@ int main (void)
 {
 		SystemInit();
 		HW_Init();
-	
 		IntDisAll();  //Note:由于使用UCOS, 在OS运行之前运行,注意别使能任何中断.
 		OSInit();
 		OS_CPU_SysTickInit(SystemCoreClock/OS_TICKS_PER_SEC);
