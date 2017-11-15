@@ -37,7 +37,7 @@ uint8  ADDR;                       //业务盘地址
 #ifdef TYPE_FSW
 uint8  OPS_CH;                     //光开关通道数
 #endif
-uint8  u1RcvBuf[120];              //任务TaskUart1Revice 用的数组
+uint8  u2RcvBuf[120];              //任务TaskUart1Revice 用的数组
 struct EPROM_DATA EPROM;           //保存EPROM设置参数的结构体
 #ifdef  TYPE_OPM
     uint8 hardware_way[CHANNEL_NUM];  //真实的硬件档位  
@@ -46,12 +46,12 @@ struct EPROM_DATA EPROM;           //保存EPROM设置参数的结构体
 #endif
 
 //OS_EVENT *Uart2RcvMbox;            //串口 2 接收邮箱
-OS_EVENT *Uart1RcvMbox; 
+OS_EVENT *Uart2RcvMbox; 
 
 OS_STK TaskWDTStk[TASK_STK_SIZE];
 
-OS_STK TaskUart1CmdStk[TASK_STK_SIZE*2];
-OS_STK TaskUart1RcvStk[TASK_STK_SIZE*2];
+OS_STK TaskUart2CmdStk[TASK_STK_SIZE*2];
+OS_STK TaskUart2RcvStk[TASK_STK_SIZE*2];
 
 #ifdef TYPE_FSW
 OS_STK TaskSvrStk[TASK_STK_SIZE*2];
@@ -238,7 +238,7 @@ void TaskWDT(void *pdata)
 						RUN_LED_L;
 						run_flag = 1;
 						sprintf((char *)cfm, "<%02d_%01u_%s>\n", ADDR,EPROM.TYPE, EPROM.MN);
-						//UART1Write_Str((uint8 *)cfm);
+						UART1Write_Str((uint8 *)cfm);
 				}
 				delay_temp ++;
 				if(delay_temp > 10)
@@ -269,7 +269,7 @@ void TaskSvr(void* pdata)
 ** 函数名称: TaskUart0Cmd
 ** 功能描述: 命令解析
 ********************************************************************************************************/
-void TaskUart1Cmd(void* pdata)
+void TaskUart2Cmd(void* pdata)
 {
     uint8  err;
     uint16 len;
@@ -277,10 +277,10 @@ void TaskUart1Cmd(void* pdata)
     OSTimeDly(500);            //等待延时
     while(1)
     {
-        OSMboxPend(Uart1RcvMbox, 0, &err);         // 等待接收邮箱数据
-        if( (len = cmd_process((char*)&u1RcvBuf)) > 0 )
+        OSMboxPend(Uart2RcvMbox, 0, &err);         // 等待接收邮箱数据
+        if( (len = cmd_process((char*)&u2RcvBuf)) > 0 )
         {
-            UART1Put_str(u1RcvBuf, len);
+            UART2Put_str(u2RcvBuf, len);
         }
 		#ifdef TYPE_OPM	
 			eprom_set();
@@ -293,19 +293,19 @@ void TaskUart1Cmd(void* pdata)
 ** 功能描述: μCOS-II的任务。从UART2接收数据，当接收完一帧数据后通过消
 **           息邮箱传送到TaskStart任务。
 ********************************************************************************************************/
-void TaskUart1Rcv(void* pdata)
+void TaskUart2Rcv(void* pdata)
 { 
 		uint8 *cp;
 		uint8 i,temp;
 
 		while(1)
 		{
-				cp = u1RcvBuf;
-				while((*cp = UART1Getch()) != '<') ;  // 接收数据头
+				cp = u2RcvBuf;
+				while((*cp = UART2Getch()) != '<') ;  // 接收数据头
 				cp++;   								              //往下移一个字节
 				for (i = 0; i < 50; i++)
 				{
-						temp = UART1Getch();
+						temp = UART2Getch();
 						*cp++ = temp;
 						if (temp =='\n')
 						{       temp = i;
@@ -317,8 +317,8 @@ void TaskUart1Rcv(void* pdata)
 								break;
 						}
 				}
-				OSMboxAccept(Uart1RcvMbox);          //清空 邮箱Uart0ReviceMbox
-				OSMboxPost(Uart1RcvMbox, (void *)u1RcvBuf);
+				OSMboxAccept(Uart2RcvMbox);          //清空 邮箱Uart0ReviceMbox
+				OSMboxPost(Uart2RcvMbox, (void *)u2RcvBuf);
 		}
 }
 /*******************************************************************************************************
@@ -336,8 +336,6 @@ int main (void)
 		OSTaskCreate(TaskWDT,       (void *)0, &TaskWDTStk[TASK_STK_SIZE - 1],        1);
 #ifdef TYPE_FSW	 
 	    OSTaskCreate(TaskSvr,       (void *)0, &TaskSvrStk[TASK_STK_SIZE*2 - 1],      2);
-	    OSTaskCreate(TaskUart1Cmd,  (void *)0, &TaskUart1CmdStk[TASK_STK_SIZE*2 - 1], 3);
-		OSTaskCreate(TaskUart1Rcv,  (void *)0, &TaskUart1RcvStk[TASK_STK_SIZE*2 - 1], 4);
 #endif
 
 
@@ -345,16 +343,14 @@ int main (void)
 	    OSTaskCreate(TaskCollectA,  (void *)0, &TaskCollectAStk[TASK_STK_SIZE*2 - 1], 2);
 	    OSTaskCreate(TaskCollectB,  (void *)0, &TaskCollectBStk[TASK_STK_SIZE*2 - 1], 3);
 	    OSTaskCreate(TaskSwitch,    (void *)0, &TaskSwitchStk[TASK_STK_SIZE - 1],     4);
-		OSTaskCreate(TaskUart1Cmd,  (void *)0, &TaskUart1CmdStk[TASK_STK_SIZE*2 - 1], 5);
-		OSTaskCreate(TaskUart1Rcv,  (void *)0, &TaskUart1RcvStk[TASK_STK_SIZE*2 - 1], 6);
 #endif 
-        OSTaskCreate(TaskUart1Cmd,  (void *)0, &TaskUart1CmdStk[TASK_STK_SIZE*2 - 1], 5);
-		OSTaskCreate(TaskUart1Rcv,  (void *)0, &TaskUart1RcvStk[TASK_STK_SIZE*2 - 1], 6);
+        OSTaskCreate(TaskUart2Cmd,  (void *)0, &TaskUart2CmdStk[TASK_STK_SIZE*2 - 1], 5);
+		OSTaskCreate(TaskUart2Rcv,  (void *)0, &TaskUart2RcvStk[TASK_STK_SIZE*2 - 1], 6);
 #ifdef TYPE_OS
 #endif
 		//建立串口0的接收邮箱
-		Uart1RcvMbox = OSMboxCreate(NULL);
-		if(Uart1RcvMbox == NULL)
+		Uart2RcvMbox = OSMboxCreate(NULL);
+		if(Uart2RcvMbox == NULL)
 			  return 1;
 		
 		OSStart();

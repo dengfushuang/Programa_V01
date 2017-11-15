@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Output\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Nov 14 09:39:34 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed Nov 15 14:44:57 2017
 <BR><P>
 <H3>Maximum Stack Usage =        352 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -81,8 +81,8 @@ Function Pointers
  <LI><a href="#[2c]">TaskCollectA</a> from user_app_task.o(.text) referenced from main.o(.text)
  <LI><a href="#[2d]">TaskCollectB</a> from user_app_task.o(.text) referenced from main.o(.text)
  <LI><a href="#[2e]">TaskSwitch</a> from user_app_task.o(.text) referenced from main.o(.text)
- <LI><a href="#[43]">TaskUart1Cmd</a> from main.o(.text) referenced 2 times from main.o(.text)
- <LI><a href="#[48]">TaskUart1Rcv</a> from main.o(.text) referenced 2 times from main.o(.text)
+ <LI><a href="#[43]">TaskUart2Cmd</a> from main.o(.text) referenced from main.o(.text)
+ <LI><a href="#[48]">TaskUart2Rcv</a> from main.o(.text) referenced from main.o(.text)
  <LI><a href="#[40]">TaskWDT</a> from main.o(.text) referenced from main.o(.text)
  <LI><a href="#[f]">UART0_IRQHandler</a> from uart0.o(.text) referenced from startup_lpc17xx.o(RESET)
  <LI><a href="#[10]">UART1_IRQHandler</a> from uart1.o(.text) referenced from startup_lpc17xx.o(RESET)
@@ -91,7 +91,7 @@ Function Pointers
  <LI><a href="#[22]">USB_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
  <LI><a href="#[73]">Uart0WriteFull</a> from uart0.o(.text) referenced from uart0.o(.text)
  <LI><a href="#[7b]">Uart1WriteFull</a> from uart1.o(.text) referenced from uart1.o(.text)
- <LI><a href="#[7e]">Uart2WriteFull</a> from uart2.o(.text) referenced from uart2.o(.text)
+ <LI><a href="#[80]">Uart2WriteFull</a> from uart2.o(.text) referenced from uart2.o(.text)
  <LI><a href="#[5]">UsageFault_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
  <LI><a href="#[a]">WDT_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
  <LI><a href="#[30]">__main</a> from entry.o(.ARM.Collect$$$$00000000) referenced from startup_lpc17xx.o(.text)
@@ -203,29 +203,29 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[43]"></a>TaskUart1Cmd</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[43]"></a>TaskUart2Cmd</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
-<LI>Call Chain = TaskUart1Cmd &rArr; cmd_process &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
+<LI>Call Chain = TaskUart2Cmd &rArr; cmd_process &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eprom_set
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Put_str
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Put_str
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[48]"></a>TaskUart1Rcv</STRONG> (Thumb, 86 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[48]"></a>TaskUart2Rcv</STRONG> (Thumb, 86 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
-<LI>Call Chain = TaskUart1Rcv &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
+<LI>Call Chain = TaskUart2Rcv &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
 </UL>
-<BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Getch
+<BR>[Calls]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Getch
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPost
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxAccept
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[2b]"></a>main</STRONG> (Thumb, 170 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[2b]"></a>main</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = main &rArr; OSInit &rArr; OSTmr_Init &rArr; OSTmr_InitTask &rArr; OSTaskCreateExt &rArr; OS_TCBInit &rArr; OSTCBInitHook
 </UL>
@@ -268,7 +268,7 @@ Global Symbols
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strstr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Cmd
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Cmd
 </UL>
 
 <P><STRONG><a name="[47]"></a>eprom_set</STRONG> (Thumb, 258 bytes, Stack size 8 bytes, cmd_process.o(.text))
@@ -277,7 +277,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Save_To_EPROM
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_Handler
 </UL>
-<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Cmd
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Cmd
 </UL>
 
 <P><STRONG><a name="[2c]"></a>TaskCollectA</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, user_app_task.o(.text))
@@ -401,7 +401,7 @@ Global Symbols
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2_IRQHandler
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_IRQHandler
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_IRQHandler
@@ -415,8 +415,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart1WriteFull
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0Putch
@@ -430,7 +430,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart1WriteFull
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart0WriteFull
 </UL>
@@ -442,7 +442,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart1WriteFull
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart0WriteFull
 </UL>
@@ -536,17 +536,12 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Write_Str
-<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Put_str
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Put_str
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Write_Str
 </UL>
 
-<P><STRONG><a name="[46]"></a>UART1Put_str</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, uart1.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
-<LI>Call Chain = UART1Put_str &rArr; UART1Putch &rArr; QueueWrite
-</UL>
-<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
-</UL>
-<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Cmd
+<P><STRONG><a name="[7d]"></a>UART1Put_str</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, uart1.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
 </UL>
 
 <P><STRONG><a name="[54]"></a>UART1Write_Str</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart1.o(.text))
@@ -558,16 +553,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
 </UL>
 
-<P><STRONG><a name="[49]"></a>UART1Getch</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, uart1.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
-<LI>Call Chain = UART1Getch &rArr; OSSemPend &rArr; OS_EventTaskWait
-</UL>
-<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
-</UL>
-<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Rcv
+<P><STRONG><a name="[7e]"></a>UART1Getch</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, uart1.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
 </UL>
 
-<P><STRONG><a name="[7d]"></a>UART1Get</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, uart1.o(.text), UNUSED)
+<P><STRONG><a name="[7f]"></a>UART1Get</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, uart1.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
 </UL>
 
@@ -582,7 +572,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[7e]"></a>Uart2WriteFull</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, uart2.o(.text))
+<P><STRONG><a name="[80]"></a>Uart2WriteFull</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, uart2.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = Uart2WriteFull &rArr; QueueWrite
 </UL>
@@ -603,7 +593,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HW_Init
 </UL>
 
-<P><STRONG><a name="[7f]"></a>UART2Putch</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, uart2.o(.text))
+<P><STRONG><a name="[81]"></a>UART2Putch</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, uart2.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
 <LI>Call Chain = UART2Putch &rArr; QueueWrite
 </UL>
@@ -612,25 +602,35 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Put_str
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Write_Str
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Write_Str
+<LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Put_str
 </UL>
 
-<P><STRONG><a name="[80]"></a>UART2Put_str</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, uart2.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<P><STRONG><a name="[46]"></a>UART2Put_str</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, uart2.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
+<LI>Call Chain = UART2Put_str &rArr; UART2Putch &rArr; QueueWrite
+</UL>
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+</UL>
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Cmd
 </UL>
 
 <P><STRONG><a name="[55]"></a>UART2Write_Str</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, uart2.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = UART2Write_Str &rArr; UART2Putch &rArr; QueueWrite
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_process
 </UL>
 
-<P><STRONG><a name="[81]"></a>UART2Getch</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, uart2.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
+<P><STRONG><a name="[49]"></a>UART2Getch</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, uart2.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
+<LI>Call Chain = UART2Getch &rArr; OSSemPend &rArr; OS_EventTaskWait
+</UL>
+<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
+</UL>
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Rcv
 </UL>
 
 <P><STRONG><a name="[12a]"></a>UART2Get</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, uart2.o(.text), UNUSED)
@@ -1379,7 +1379,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Rcv
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Rcv
 </UL>
 
 <P><STRONG><a name="[50]"></a>OSMboxCreate</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, os_mbox.o(.text))
@@ -1410,7 +1410,7 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Cmd
+<BR>[Called By]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Cmd
 </UL>
 
 <P><STRONG><a name="[d4]"></a>OSMboxPendAbort</STRONG> (Thumb, 138 bytes, Stack size 24 bytes, os_mbox.o(.text), UNUSED)
@@ -1429,7 +1429,7 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Rcv
+<BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Rcv
 </UL>
 
 <P><STRONG><a name="[d5]"></a>OSMboxPostOpt</STRONG> (Thumb, 132 bytes, Stack size 24 bytes, os_mbox.o(.text), UNUSED)
@@ -1591,10 +1591,10 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
 </UL>
-<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Getch
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Get
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Get
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Getch
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0Getch
-<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Getch
+<LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Getch
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTmr_Task
 </UL>
 
@@ -1771,7 +1771,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStatInit
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_TaskStat
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;optics_collect
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart2WriteFull
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart1WriteFull
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart0WriteFull
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_optics_collect_B
@@ -1780,7 +1780,7 @@ Global Symbols
 <LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskSwitch
 <LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskCollectB
 <LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskCollectA
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart1Cmd
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskUart2Cmd
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskWDT
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDlyHMSM
 </UL>
@@ -2201,7 +2201,7 @@ Global Symbols
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;optics_collect
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2_IRQHandler
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_IRQHandler
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPost
@@ -2294,7 +2294,7 @@ Global Symbols
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;optics_collect
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2_IRQHandler
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2Putch
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_IRQHandler
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1Putch
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPost

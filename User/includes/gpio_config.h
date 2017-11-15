@@ -27,7 +27,7 @@ extern "C" {
 	//9
 	#define CHANNEL_PIN8_WAY(X)   LPC_GPIO4->CLR|=(7<<5);LPC_GPIO4->SET|=(X<<5) //AD 采取换挡控制脚
 	//10
-	#define CHANNEL_PIN9_WAY(X)   LPC_GPIO4->CLR|=(7<<10);LPC_GPIO4->SET|=(X<<10) //AD 采取换挡控制脚
+	#define CHANNEL_PIN9_WAY(X)   LPC_GPIO4->CLR|=(7<<8);LPC_GPIO4->SET|=(X<<8) //AD 采取换挡控制脚
 	//11
 	#define CHANNEL_PIN10_WAY(X)   LPC_GPIO2->CLR|=(7<<6);LPC_GPIO2->SET|=(X<<6) //AD 采取换挡控制脚
 	//12
@@ -37,7 +37,7 @@ extern "C" {
 	//14
 	#define CHANNEL_PIN13_WAY(X)   LPC_GPIO2->CLR|=(7<<0);LPC_GPIO2->SET|=(X<<0) //AD 采取换挡控制脚
 	//15
-	#define CHANNEL_PIN14_WAY(X)   LPC_GPIO0->CLR|=(7<<9);LPC_GPIO0->SET|=(X<<9) //AD 采取换挡控制脚
+	#define CHANNEL_PIN14_WAY(X)   LPC_GPIO0->CLR|=(7<<7);LPC_GPIO0->SET|=(X<<7) //AD 采取换挡控制脚
 	//16
 	#define CHANNEL_PIN15_WAY(X)   LPC_GPIO0->CLR|=(7<<4);LPC_GPIO0->SET|=(X<<4) //AD 采取换挡控制脚
 	//17
